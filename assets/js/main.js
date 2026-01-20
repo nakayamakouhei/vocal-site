@@ -94,6 +94,13 @@ function setupOrbit() {
     const scene = document.getElementById("orbitScene");
     if (!orbit || !scene) return;
 
+    const orbitEpochKey = "orbitEpoch";
+    let orbitEpoch = Number(sessionStorage.getItem(orbitEpochKey));
+    if (!orbitEpoch) {
+        orbitEpoch = Date.now();
+        sessionStorage.setItem(orbitEpochKey, String(orbitEpoch));
+    }
+
     const videoIds = [
         "JT7jlgqqSuU",
         "zJFXuLmmEvY",
@@ -149,11 +156,10 @@ function setupOrbit() {
     });
 
     const reduced = prefersReducedMotion();
-    const start = performance.now();
 
     function render(now) {
         const { R, yScale, speed, tiltX, tiltY, baseZ } = calcParams();
-        const t = reduced ? 0 : (now - start) * speed;
+        const t = reduced ? 0 : (Date.now() - orbitEpoch) * speed;
 
         orbit.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(${baseZ}px)`;
 
@@ -202,9 +208,38 @@ window.addEventListener("load", () => {
 
     const hero = document.querySelector(".hero");
     const home = document.querySelector(".home");
-    if (!hero || !home) return;
+    if (!home) {
+        startBackground();
+        return;
+    }
 
+    if (!hero) {
+        setTimeout(() => {
+            home.classList.add("is-visible");
+        }, 120);
+        startBackground();
+        return;
+    }
+
+    const hasSeenWelcome = sessionStorage.getItem("seenWelcome") === "1";
+    const hasSeenHomeReveal = sessionStorage.getItem("seenHomeReveal") === "1";
+
+    if (hasSeenWelcome) {
+        if (hasSeenHomeReveal) {
+            document.documentElement.classList.add("home-no-anim");
+        }
+        sessionStorage.setItem("seenHomeReveal", "1");
+        document.documentElement.classList.remove("welcome-active");
+        hero.style.display = "none";
+        home.classList.add("is-visible");
+        startBackground();
+        setupOrbit();
+        return;
+    }
+
+    sessionStorage.setItem("seenWelcome", "1");
     document.body.classList.add("is-locked");
+    document.documentElement.classList.add("welcome-active");
 
     hero.classList.add("is-visible");
 
@@ -216,10 +251,12 @@ window.addEventListener("load", () => {
         hero.style.display = "none";
         home.classList.add("is-visible");
         document.body.classList.remove("is-locked");
+        document.documentElement.classList.remove("welcome-active");
         window.scrollTo(0, 0);
 
         startBackground();
         setupOrbit();
+        sessionStorage.setItem("seenHomeReveal", "1");
     }, 3700);
 });
 
@@ -280,4 +317,96 @@ window.addEventListener("load", () => {
     });
 
     closeMenu();
+})();
+
+/* =======================
+  Info pagination
+   ======================= */
+(() => {
+    const list = document.querySelector(".info-list");
+    if (!list) return;
+
+    const items = Array.from(list.querySelectorAll(".info-item"));
+    const pagination = document.querySelector(".info-pagination");
+    if (!pagination || items.length === 0) return;
+
+    const perPage = 5;
+    const totalPages = Math.ceil(items.length / perPage);
+
+    const createButton = (label, page, isCurrent = false) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = label;
+        btn.dataset.page = String(page);
+        if (isCurrent) btn.setAttribute("aria-current", "page");
+        return btn;
+    };
+
+    const renderButtons = (current) => {
+        pagination.innerHTML = "";
+        pagination.appendChild(createButton("PREV", Math.max(1, current - 1)));
+
+        for (let i = 1; i <= totalPages; i += 1) {
+            pagination.appendChild(createButton(String(i), i, i === current));
+        }
+
+        pagination.appendChild(createButton("NEXT", Math.min(totalPages, current + 1)));
+    };
+
+    const updateItems = (current) => {
+        items.forEach((item, index) => {
+            const visible = index >= (current - 1) * perPage && index < current * perPage;
+            item.style.display = visible ? "" : "none";
+            item.classList.remove("is-first-visible");
+        });
+
+        const firstVisible = items.find((item) => item.style.display !== "none");
+        if (firstVisible) firstVisible.classList.add("is-first-visible");
+    };
+
+    const goTo = (page) => {
+        const current = Math.max(1, Math.min(totalPages, page));
+        renderButtons(current);
+        updateItems(current);
+    };
+
+    pagination.addEventListener("click", (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+        const page = Number(btn.dataset.page);
+        if (!page) return;
+        goTo(page);
+    });
+
+    goTo(1);
+})();
+
+/* =======================
+   Sync info list on index
+   ======================= */
+(() => {
+    const list = document.querySelector(".info-list[data-info-source]");
+    if (!list) return;
+
+    const source = list.dataset.infoSource;
+    if (!source) return;
+
+    fetch(source)
+        .then((res) => {
+            if (!res.ok) throw new Error("Failed to load info source");
+            return res.text();
+        })
+        .then((html) => {
+            const doc = new DOMParser().parseFromString(html, "text/html");
+            const items = Array.from(doc.querySelectorAll(".info-list .info-item")).slice(0, 3);
+            if (items.length === 0) return;
+
+            list.innerHTML = "";
+            items.forEach((item) => {
+                list.appendChild(item.cloneNode(true));
+            });
+        })
+        .catch(() => {
+            // Keep existing markup as a fallback when fetch is blocked (e.g., file://).
+        });
 })();
