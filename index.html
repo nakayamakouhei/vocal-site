@@ -1,24 +1,135 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="UTF-8" />
-        <title>memetra Official Site</title>
-        <link rel="stylesheet" href="assets/css/style.css" />
-    </head>
-    <body>
-        <section class="hero">
-            <img
-            src="assets/img/Welcome.png"
-            alt="Welcome"
-            class="hero-logo"
-            >
-        </section>
-        <main class="home">
-            <h1>memetra</h1>
-            <p>Official Site</p>
-        </main>
-          
 
-        <script src="assets/js/main.js"></script>
-    </body>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>memetra Official Site</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+    <!-- 背景アニメ用（変更しない） -->
+    <canvas id="bg"></canvas>
+
+    <!-- Welcome（変更しない：フェードイン/アウトは main.js 側） -->
+    <section class="hero" aria-label="Welcome">
+        <img src="assets/img/Welcome.png" alt="Welcome" class="hero-logo" />
+    </section>
+
+    <!-- ✅ Header（グローバルメニューをヘッダーとして扱う） -->
+    <header class="site-header" aria-label="Header">
+        <div class="header-inner">
+            <!-- グローバルメニュー（PC：横並び / Mobile：ドロワー） -->
+            <nav class="nav" id="globalNav" aria-label="Global navigation">
+                <a href="#home">home</a>
+                <a href="#info">info</a>
+                <a href="#tracks">tracks</a>
+                <a href="#movie">movie</a>
+                <a href="#contact">contact</a>
+            </nav>
+
+            <div class="header-actions" aria-label="Social links">
+                <a href="https://x.com/memetra_v" aria-label="X" rel="noopener noreferrer" target="_blank">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M18.9 3H21l-6.6 7.6L22 21h-6.5l-4.2-5.5L6 21H3l7-8.1L2 3h6.6l3.8 5L18.9 3z" />
+                    </svg>
+                </a>
+                <a href="https://www.youtube.com/@memetra-v" aria-label="YouTube"
+                    rel="noopener noreferrer" target="_blank">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M23 12s0-3.4-.4-4.8c-.2-.8-.9-1.5-1.8-1.7C19 5 12 5 12 5s-7 0-8.8.5c-.9.2-1.6.9-1.8 1.7C1 8.6 1 12 1 12s0 3.4.4 4.8c.2.8.9 1.5 1.8 1.7C5 19 12 19 12 19s7 0 8.8-.5c.9-.2 1.6-.9 1.8-1.7.4-1.4.4-4.8.4-4.8z" />
+                        <path d="M10 15.5V8.5L16 12z" fill="#fff" />
+                    </svg>
+                </a>
+            </div>
+
+            <!-- モバイル用：ハンバーガー（右上） -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-controls="globalNav"
+                aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+        <!-- モバイルのドロワー用背景 -->
+        <div class="nav-backdrop" id="navBackdrop" hidden></div>
+    </header>
+
+    <!-- Home本体 -->
+    <main class="home" id="home">
+        <div class="container">
+            <!-- 3D Orbit YouTube（変更しない） -->
+            <section class="orbit-wrap" aria-label="3D YouTube orbit">
+                <div class="orbit-scene" id="orbitScene">
+                    <div class="orbit" id="orbit" aria-label="YouTube thumbnails orbit"></div>
+                </div>
+            </section>
+
+            <!-- info -->
+            <section class="info" id="info" aria-label="Info">
+                <div class="info-header">
+                    <h2 class="info-title">INFO</h2>
+                </div>
+
+                <article class="info-item">
+                    <div class="info-meta">
+                        <time class="info-date" datetime="2025-12-26">2025.12.26</time>
+                        <span class="info-tag">MUSIC VIDEO</span>
+                    </div>
+                    <div class="info-content">
+                        <p class="info-lead">「星になった夜」ミュージックビデオを公開</p>
+                        <p>前作「Stargazer」及び「彗星の待ち人」の物語の結末を綴った楽曲です。<br>それは彼女たちにとって良い結末となるのか。<br>きっと、素敵なものだと思います。</p>
+                        <p>「星になった夜」<br>作詞・作曲：memetra</p>
+                        <p>ミュージックビデオはこちらからご視聴いただけます。<br><a class="info-link"
+                                href="https://youtu.be/TZJUg9_QVy8" target="_blank"
+                                rel="noopener noreferrer">https://youtu.be/TZJUg9_QVy8</a></p>
+                    </div>
+                </article>
+
+                <div class="info-divider" aria-hidden="true"></div>
+
+                <article class="info-item">
+                    <div class="info-meta">
+                        <time class="info-date" datetime="2025-11-05">2025.11.5</time>
+                        <span class="info-tag">MUSIC VIDEO</span>
+                    </div>
+                    <div class="info-content">
+                        <p class="info-lead">「彗星の待ち人」ミュージックビデオを公開</p>
+                        <p>前作「Stargazer」の続きの物語です。<br>宇宙に憧れた少女は、たどり着いた先で何を感じ、何を思ったのか。<br>少し切なく、けれども前を向いていける、そんな物語です。</p>
+                        <p>「彗星の待ち人」<br>作詞・作曲：memetra</p>
+                        <p>ミュージックビデオはこちらからご視聴いただけます。<br><a class="info-link"
+                                href="https://youtu.be/zJFXuLmmEvY" target="_blank"
+                                rel="noopener noreferrer">https://youtu.be/zJFXuLmmEvY</a></p>
+                    </div>
+                </article>
+
+                <div class="info-divider" aria-hidden="true"></div>
+
+                <article class="info-item">
+                    <div class="info-meta">
+                        <time class="info-date" datetime="2025-08-28">2025.8.28</time>
+                        <span class="info-tag">MUSIC VIDEO</span>
+                    </div>
+                    <div class="info-content">
+                        <p class="info-lead">「Stargazer」ミュージックビデオを公開</p>
+                        <p>初めてのボカロ作品です。<br>星空・宇宙をテーマに、少し切なく、小さな勇気をもらえる作品を描きました。</p>
+                        <p>「Stargazer」<br>作詞・作曲：memetra</p>
+                        <p>ミュージックビデオはこちらからご視聴いただけます。<br><a class="info-link"
+                                href="https://youtu.be/JT7jlgqqSuU" target="_blank"
+                                rel="noopener noreferrer">https://youtu.be/JT7jlgqqSuU</a></p>
+                    </div>
+                </article>
+
+                <div class="info-divider" aria-hidden="true"></div>
+
+                <a class="info-more" href="info.html">もっと見る</a>
+            </section>
+        </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
 </html>
