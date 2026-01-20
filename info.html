@@ -4,36 +4,21 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script>
-        try {
-            if (!sessionStorage.getItem("seenWelcome")) {
-                document.documentElement.classList.add("welcome-active");
-            }
-        } catch (e) { }
-    </script>
-    <title>memetra Official Site</title>
+    <title>memetra Official Site | Info</title>
     <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
-<body>
-    <!-- 背景アニメ用（変更しない） -->
+<body class="info-page">
     <canvas id="bg"></canvas>
 
-    <!-- Welcome（変更しない：フェードイン/アウトは main.js 側） -->
-    <section class="hero" aria-label="Welcome">
-        <img src="assets/img/Welcome.png" alt="Welcome" class="hero-logo" />
-    </section>
-
-    <!-- ✅ Header（グローバルメニューをヘッダーとして扱う） -->
     <header class="site-header" aria-label="Header">
         <div class="header-inner">
-            <!-- グローバルメニュー（PC：横並び / Mobile：ドロワー） -->
             <nav class="nav" id="globalNav" aria-label="Global navigation">
-                <a href="#home">home</a>
-                <a href="info.html">info</a>
-                <a href="#tracks">tracks</a>
-                <a href="#movie">movie</a>
-                <a href="#contact">contact</a>
+                <a href="index.html#home">home</a>
+                <a href="info.html" aria-current="page">info</a>
+                <a href="index.html#tracks">tracks</a>
+                <a href="index.html#movie">movie</a>
+                <a href="index.html#contact">contact</a>
             </nav>
 
             <div class="header-actions" aria-label="Social links">
@@ -43,8 +28,8 @@
                             d="M18.9 3H21l-6.6 7.6L22 21h-6.5l-4.2-5.5L6 21H3l7-8.1L2 3h6.6l3.8 5L18.9 3z" />
                     </svg>
                 </a>
-                <a href="https://www.youtube.com/@memetra-v" aria-label="YouTube"
-                    rel="noopener noreferrer" target="_blank">
+                <a href="https://www.youtube.com/@memetra-v" aria-label="YouTube" rel="noopener noreferrer"
+                    target="_blank">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path
                             d="M23 12s0-3.4-.4-4.8c-.2-.8-.9-1.5-1.8-1.7C19 5 12 5 12 5s-7 0-8.8.5c-.9.2-1.6.9-1.8 1.7C1 8.6 1 12 1 12s0 3.4.4 4.8c.2.8.9 1.5 1.8 1.7C5 19 12 19 12 19s7 0 8.8-.5c.9-.2 1.6-.9 1.8-1.7.4-1.4.4-4.8.4-4.8z" />
@@ -53,34 +38,23 @@
                 </a>
             </div>
 
-            <!-- モバイル用：ハンバーガー（右上） -->
             <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-controls="globalNav"
                 aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
         </div>
 
-        <!-- モバイルのドロワー用背景 -->
         <div class="nav-backdrop" id="navBackdrop" hidden></div>
     </header>
 
-    <!-- Home本体 -->
-    <main class="home" id="home">
+    <main class="home" id="info">
         <div class="container">
-            <!-- 3D Orbit YouTube（変更しない） -->
-            <section class="orbit-wrap" aria-label="3D YouTube orbit">
-                <div class="orbit-scene" id="orbitScene">
-                    <div class="orbit" id="orbit" aria-label="YouTube thumbnails orbit"></div>
-                </div>
-            </section>
-
-            <!-- info -->
-            <section class="info" id="info" aria-label="Info">
+            <section class="info" aria-label="Info">
                 <div class="info-header">
                     <h2 class="info-title">INFO</h2>
                 </div>
 
-                <div class="info-list" data-info-source="info.html">
+                <div class="info-list">
                     <article class="info-item">
                         <div class="info-meta">
                             <time class="info-date" datetime="2025-12-26">2025.12.26</time>
@@ -111,23 +85,23 @@
                         </div>
                     </article>
 
-                    <article class="info-item">
-                        <div class="info-meta">
-                            <time class="info-date" datetime="2025-08-28">2025.8.28</time>
-                            <span class="info-tag">MUSIC VIDEO</span>
-                        </div>
+                <article class="info-item">
+                    <div class="info-meta">
+                        <time class="info-date" datetime="2025-08-28">2025.8.28</time>
+                        <span class="info-tag">MUSIC VIDEO</span>
+                    </div>
                         <div class="info-content">
                             <p class="info-lead">「Stargazer」ミュージックビデオを公開</p>
                             <p>初めてのボカロ作品です。<br>星空・宇宙をテーマに、少し切なく、小さな勇気をもらえる作品を描きました。</p>
                             <p>「Stargazer」<br>作詞・作曲：memetra</p>
-                            <p>ミュージックビデオはこちらからご視聴いただけます。<br><a class="info-link"
-                                    href="https://youtu.be/JT7jlgqqSuU" target="_blank"
-                                    rel="noopener noreferrer">https://youtu.be/JT7jlgqqSuU</a></p>
-                        </div>
-                    </article>
-                </div>
+                        <p>ミュージックビデオはこちらからご視聴いただけます。<br><a class="info-link"
+                                href="https://youtu.be/JT7jlgqqSuU" target="_blank"
+                                rel="noopener noreferrer">https://youtu.be/JT7jlgqqSuU</a></p>
+                    </div>
+                </article>
+            </div>
 
-                <a class="info-more" href="info.html">もっと見る</a>
+                <nav class="info-pagination" aria-label="Info pages"></nav>
             </section>
         </div>
     </main>
