@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>memetra Official Site | Tracks</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body class="info-page">
+    <canvas id="bg"></canvas>
+
+    <header class="site-header" aria-label="Header">
+        <div class="header-inner">
+            <nav class="nav" id="globalNav" aria-label="Global navigation">
+                <a href="index.html#home">home</a>
+                <a href="info.html">info</a>
+                <a href="tracks.html" aria-current="page">tracks</a>
+                <a href="index.html#movie">movie</a>
+                <a href="index.html#contact">contact</a>
+            </nav>
+
+            <div class="header-actions" aria-label="Social links">
+                <a href="https://x.com/memetra_v" aria-label="X" rel="noopener noreferrer" target="_blank">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M18.9 3H21l-6.6 7.6L22 21h-6.5l-4.2-5.5L6 21H3l7-8.1L2 3h6.6l3.8 5L18.9 3z" />
+                    </svg>
+                </a>
+                <a href="https://www.youtube.com/@memetra-v" aria-label="YouTube" rel="noopener noreferrer"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M23 12s0-3.4-.4-4.8c-.2-.8-.9-1.5-1.8-1.7C19 5 12 5 12 5s-7 0-8.8.5c-.9.2-1.6.9-1.8 1.7C1 8.6 1 12 1 12s0 3.4.4 4.8c.2.8.9 1.5 1.8 1.7C5 19 12 19 12 19s7 0 8.8-.5c.9-.2 1.6-.9 1.8-1.7.4-1.4.4-4.8.4-4.8z" />
+                        <path d="M10 15.5V8.5L16 12z" fill="#fff" />
+                    </svg>
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-controls="globalNav"
+                aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+        <div class="nav-backdrop" id="navBackdrop" hidden></div>
+    </header>
+
+    <main class="home is-visible" id="tracks">
+        <div class="container">
+            <section class="info" aria-label="Tracks">
+                <div class="info-header">
+                    <h2 class="info-title">TRACKS</h2>
+                </div>
+
+                <article class="info-item">
+                    <div class="info-meta">
+                        <span class="info-tag">NOW PREPARING</span>
+                    </div>
+                    <div class="info-content">
+                        <p class="info-lead">リリース情報は準備中です</p>
+                        <p>アルバムやシングルのリリースが決まり次第、こちらに一覧で掲載します。</p>
+                        <p>続報をお待ちください。</p>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
