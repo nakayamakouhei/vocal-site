@@ -390,6 +390,7 @@ window.addEventListener("load", () => {
 
     const source = list.dataset.infoSource;
     if (!source) return;
+    if (location.protocol === "file:") return;
 
     fetch(source)
         .then((res) => {
